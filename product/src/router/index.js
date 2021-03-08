@@ -1,5 +1,12 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import addnewproduct from '../views/addnewproduct.vue'
+import login from '../views/login.vue'
+import postdetail from '../views/postdetail.vue'
+import notFound from '../views/notFound.vue'
+import register from '../views/register.vue'
+Vue.use(VueRouter)
 
 const routes = [
   {
@@ -8,17 +15,45 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/login',
+    name: 'login',
+    component:login
+  },
+  {
+    path:'/register',
+    name:'register',
+    component:register,
+    
+  },
+  {
+    path:'/:id',
+    name:'postdetail',
+    component:postdetail,
+    props:true
+  },
+  {
+    path:'/:token',
+    name:'addnewproduct',
+    component:addnewproduct,
+    props:true
+  },
+  //redirecting
+  {
+    path:'/all-product',
+    redirect:'/'
+  },
+
+  {
+    path:'/:catchAll(.*)',
+    name:'notFound',
+    component:notFound
+
   }
 ]
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
   routes
 })
 
